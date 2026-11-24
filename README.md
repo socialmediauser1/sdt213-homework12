@@ -1,14 +1,14 @@
 # SDT213 Homework 12 – Creating Web Services
 
 **Squad Manager** – my own **REST web service** that manages the players of a football squad,
-plus a **Java console client** that uses it.
+plus a **JavaFX client** (and a console client) that uses it.
 
 In Homework 11 the program was only a *client* of someone else's service (football-data.org).
-Here both sides are mine: `SquadServer` is the web service, `ClientApp` is the program that calls it.
+Here both sides are mine: `SquadServer` is the web service, `SquadApp` (JavaFX) and `ConsoleApp` are programs that call it.
 
 ```
- ClientApp ──► SquadServiceClient ──HTTP + JSON──► SquadServer ──► PlayersHandler ──► PlayerRepository
- (console)     (java.net.http.HttpClient)          (JDK HttpServer)  (routes requests)    (players in memory)
+ SquadApp  ──► SquadServiceClient ──HTTP + JSON──► SquadServer ──► PlayersHandler ──► PlayerRepository
+ (JavaFX)      (java.net.http.HttpClient)          (JDK HttpServer)  (routes requests)    (players in memory)
 ```
 
 ## REST API
@@ -52,7 +52,10 @@ Errors look like:
 | `server.PlayerRepository` | Stores players in a `TreeMap` (in memory, thread-safe with `synchronized`), starts with 7 players |
 | `client.SquadServiceClient` | One method per endpoint; builds `HttpRequest`s, sends them, checks the status code, parses JSON |
 | `client.SquadServiceException` | Error from the service (or the service is not running) |
-| `client.ClientApp` | `main` – console menu that demonstrates every endpoint |
+| `gui.SquadApp` | JavaFX window: table of players with position filter and find by id, status bar showing each request and its result; requests run in a background `Task` |
+| `gui.PlayerForm` | The form on the right: fields of a player and the Add (POST), Save (PUT), Delete (DELETE) and Clear buttons |
+| `gui.Launcher` | `main` – starts the JavaFX application |
+| `client.ConsoleApp` | `main` – console menu with the same features |
 
 ## How to run
 
@@ -60,8 +63,9 @@ Requires Java 17+. Run the server first, then the client in a second terminal (o
 
 1. Server: `.\mvnw.cmd -q compile exec:java`
    (or in IntelliJ IDEA run `ua.auk.hw12.server.SquadServer`)
-2. Client: `.\mvnw.cmd -q exec:java "-Dexec.mainClass=ua.auk.hw12.client.ClientApp"`
-   (or run `ua.auk.hw12.client.ClientApp`)
+2. Client window: `.\mvnw.cmd -q javafx:run`
+   (or run `ua.auk.hw12.gui.Launcher`)
+3. Console client (optional): `.\mvnw.cmd -q exec:java "-Dexec.mainClass=ua.auk.hw12.client.ConsoleApp"`
 
 The service can also be tested without the client, e.g. open `http://localhost:8080/api/players` in a browser, or:
 

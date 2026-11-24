@@ -16,11 +16,6 @@ import java.nio.charset.StandardCharsets;
 import java.time.Duration;
 import java.util.List;
 
-/**
- * Talks to the Squad Manager REST service over HTTP.
- * Each public method sends one request and turns the JSON answer back into Java objects,
- * so the rest of the program does not need to know about HTTP or JSON.
- */
 public class SquadServiceClient {
 
     private final String baseUrl;
@@ -31,30 +26,25 @@ public class SquadServiceClient {
 
     private final Gson gson = new Gson();
 
-    /** @param baseUrl address of the players resource, e.g. http://localhost:8080/api/players */
     public SquadServiceClient(String baseUrl) {
         this.baseUrl = baseUrl;
     }
 
-    /** GET /api/players */
     public List<Player> getAllPlayers() {
         HttpRequest request = newRequest("").GET().build();
         return List.of(gson.fromJson(send(request), Player[].class));
     }
 
-    /** GET /api/players?position=... */
     public List<Player> getPlayersByPosition(Position position) {
         HttpRequest request = newRequest("?position=" + position.name()).GET().build();
         return List.of(gson.fromJson(send(request), Player[].class));
     }
 
-    /** GET /api/players/{id} */
     public Player getPlayer(int id) {
         HttpRequest request = newRequest("/" + id).GET().build();
         return gson.fromJson(send(request), Player.class);
     }
 
-    /** POST /api/players - returns the saved player with the id the server gave it. */
     public Player addPlayer(Player player) {
         HttpRequest request = newRequest("")
                 .header("Content-Type", "application/json")
@@ -63,7 +53,6 @@ public class SquadServiceClient {
         return gson.fromJson(send(request), Player.class);
     }
 
-    /** PUT /api/players/{id} - replaces the player and returns the saved version. */
     public Player updatePlayer(int id, Player player) {
         HttpRequest request = newRequest("/" + id)
                 .header("Content-Type", "application/json")
@@ -72,23 +61,17 @@ public class SquadServiceClient {
         return gson.fromJson(send(request), Player.class);
     }
 
-    /** DELETE /api/players/{id} */
     public void deletePlayer(int id) {
         HttpRequest request = newRequest("/" + id).DELETE().build();
         send(request);
     }
 
-    /** Starts building a request to baseUrl + path that expects JSON back. */
     private HttpRequest.Builder newRequest(String path) {
         return HttpRequest.newBuilder(URI.create(baseUrl + path))
                 .header("Accept", "application/json")
                 .timeout(Duration.ofSeconds(10));
     }
 
-    /**
-     * Sends the request and returns the response body.
-     * Throws SquadServiceException if the server is down or the status code is not 2xx.
-     */
     private String send(HttpRequest request) {
         HttpResponse<String> response;
         try {
@@ -109,7 +92,6 @@ public class SquadServiceClient {
         throw new SquadServiceException("HTTP " + status + ": " + readErrorMessage(response.body()));
     }
 
-    /** The server sends errors as {"status":...,"error":"..."}; take the text out of it. */
     private String readErrorMessage(String body) {
         try {
             ErrorMessage error = gson.fromJson(body, ErrorMessage.class);
@@ -117,7 +99,6 @@ public class SquadServiceClient {
                 return error.error();
             }
         } catch (JsonSyntaxException e) {
-            // the body was not our error JSON, show it as it is
         }
         return body;
     }

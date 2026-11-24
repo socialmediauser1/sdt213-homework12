@@ -1,0 +1,284 @@
+.root {
+    -pitch-dark: #0b3d2e;
+    -pitch: #13724a;
+    -accent: #1fae6b;
+    -page: #f3f6f4;
+    -card: #ffffff;
+    -line: #e2e8e4;
+    -text: #1d2b24;
+    -muted: #6b7c73;
+    -fx-font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+    -fx-font-size: 13px;
+    -fx-background-color: -page;
+}
+
+.header {
+    -fx-background-color: linear-gradient(to right, -pitch-dark, -pitch);
+    -fx-padding: 16 24 16 24;
+}
+
+.logo {
+    -fx-font-family: "Segoe UI Symbol";
+    -fx-font-size: 30px;
+    -fx-text-fill: white;
+}
+
+.app-title {
+    -fx-font-size: 21px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+
+.app-subtitle {
+    -fx-font-size: 12px;
+    -fx-text-fill: rgba(255, 255, 255, 0.72);
+}
+
+.header-label {
+    -fx-text-fill: rgba(255, 255, 255, 0.85);
+    -fx-font-weight: bold;
+}
+
+
+.page-title {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -text;
+}
+
+.button {
+    -fx-background-color: white;
+    -fx-border-color: -line;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-padding: 7 14 7 14;
+    -fx-text-fill: -text;
+    -fx-cursor: hand;
+}
+
+.button:hover {
+    -fx-background-color: #eaf5ef;
+}
+
+.button.accent {
+    -fx-background-color: -accent;
+    -fx-border-color: -accent;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+
+.button.accent:hover {
+    -fx-background-color: -pitch;
+}
+
+.text-field {
+    -fx-background-color: white;
+    -fx-border-color: -line;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-padding: 8 10 8 10;
+}
+
+.text-field:focused {
+    -fx-border-color: -accent;
+}
+
+.table-view .column-header-background {
+    -fx-background-color: white;
+    -fx-background-radius: 10 10 0 0;
+}
+
+.table-view .column-header, .table-view .filler {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent transparent -line transparent;
+    -fx-size: 36px;
+}
+
+.table-view .column-header .label {
+    -fx-text-fill: -muted;
+    -fx-font-weight: bold;
+}
+
+.table-view .column-header .label {
+    -fx-alignment: center-left;
+    -fx-padding: 0 10 0 10;
+}
+
+.table-row-cell {
+    -fx-background-color: white;
+    -fx-border-color: transparent transparent #eef2ef transparent;
+    -fx-cell-size: 34px;
+}
+
+.table-row-cell .table-cell {
+    -fx-text-fill: -text;
+    -fx-border-color: transparent;
+    -fx-padding: 0 10 0 10;
+    -fx-alignment: center-left;
+}
+
+.table-row-cell:hover {
+    -fx-background-color: #f2f8f4;
+}
+
+.table-row-cell:selected {
+    -fx-background-color: #d9f1e4;
+}
+
+.table-cell.number {
+    -fx-alignment: center;
+}
+
+.status-bar {
+    -fx-background-color: white;
+    -fx-border-color: -line transparent transparent transparent;
+    -fx-padding: 7 24 7 24;
+}
+
+.status-bar .label {
+    -fx-text-fill: -muted;
+    -fx-font-size: 12px;
+}
+
+.status-bar .label.error {
+    -fx-text-fill: #c0392b;
+    -fx-font-weight: bold;
+}
+
+.scroll-bar {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: #cfd9d3;
+    -fx-background-radius: 6;
+}
+
+.scroll-bar .increment-button, .scroll-bar .decrement-button {
+    -fx-padding: 0;
+    -fx-shape: "";
+}
+
+.page {
+    -fx-padding: 18 20 18 24;
+}
+
+.count {
+    -fx-text-fill: -muted;
+    -fx-font-size: 13px;
+    -fx-padding: 4 0 0 0;
+}
+
+.combo-box {
+    -fx-background-color: white;
+    -fx-border-color: -line;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+}
+
+.combo-box:focused {
+    -fx-border-color: -accent;
+}
+
+.table-row-cell:selected .table-cell {
+    -fx-text-fill: -pitch-dark;
+}
+
+.table-column.number, .table-cell.number {
+    -fx-alignment: center;
+}
+
+.table-cell.goals {
+    -fx-alignment: center;
+    -fx-font-weight: bold;
+    -fx-text-fill: -pitch-dark;
+}
+
+.position-badge {
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+    -fx-padding: 3 8 3 8;
+    -fx-background-radius: 10;
+}
+
+.position-goalkeeper {
+    -fx-background-color: #fff3d6;
+    -fx-text-fill: #9a6700;
+}
+
+.position-defender {
+    -fx-background-color: #e3edfb;
+    -fx-text-fill: #1f4f8f;
+}
+
+.position-midfielder {
+    -fx-background-color: #e5f6ec;
+    -fx-text-fill: #13724a;
+}
+
+.position-forward {
+    -fx-background-color: #fde8e6;
+    -fx-text-fill: #b03a2e;
+}
+
+.player-form {
+    -fx-background-color: white;
+    -fx-border-color: transparent transparent transparent -line;
+    -fx-padding: 18 22 18 22;
+}
+
+.form-title {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -text;
+}
+
+.form-mode {
+    -fx-text-fill: -muted;
+    -fx-font-size: 12px;
+}
+
+.field-label {
+    -fx-text-fill: -muted;
+    -fx-font-weight: bold;
+}
+
+.button.danger {
+    -fx-text-fill: #c0392b;
+}
+
+.button.danger:hover {
+    -fx-background-color: #fdf0ee;
+}
+
+.button:disabled {
+    -fx-opacity: 0.45;
+}
+
+.method-tag {
+    -fx-font-family: "Consolas", monospace;
+    -fx-font-size: 10px;
+    -fx-font-weight: bold;
+    -fx-padding: 1 6 1 6;
+    -fx-background-radius: 4;
+    -fx-background-color: rgba(11, 61, 46, 0.08);
+    -fx-text-fill: -pitch-dark;
+}
+
+.button.accent .method-tag {
+    -fx-background-color: rgba(255, 255, 255, 0.22);
+    -fx-text-fill: white;
+}
+
+.button.danger .method-tag {
+    -fx-background-color: #fbe3df;
+    -fx-text-fill: #c0392b;
+}
+
+.status-bar .label {
+    -fx-font-family: "Consolas", monospace;
+}
+
+.table-view .column-header.number .label, .table-view .column-header.goals .label {
+    -fx-alignment: center;
+}

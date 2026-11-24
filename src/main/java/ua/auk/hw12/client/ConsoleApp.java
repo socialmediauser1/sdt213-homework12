@@ -6,25 +6,19 @@ import ua.auk.hw12.model.Position;
 import java.util.List;
 import java.util.Scanner;
 
-/**
- * Console program that demonstrates the Squad Manager web service.
- * Every menu item calls one REST endpoint through {@link SquadServiceClient}.
- * Start SquadServer first, then run this program.
- */
-public class ClientApp {
+public class ConsoleApp {
 
-    // Address of the players resource of the web service (SquadServer must be running)
     private static final String SERVICE_URL = "http://localhost:8080/api/players";
 
     private final Scanner scanner = new Scanner(System.in);
     private final SquadServiceClient client;
 
-    public ClientApp(SquadServiceClient client) {
+    public ConsoleApp(SquadServiceClient client) {
         this.client = client;
     }
 
     public static void main(String[] args) {
-        new ClientApp(new SquadServiceClient(SERVICE_URL)).run();
+        new ConsoleApp(new SquadServiceClient(SERVICE_URL)).run();
     }
 
     private void run() {
@@ -48,10 +42,8 @@ public class ClientApp {
                     default -> System.out.println("Please enter a number from 0 to 6.");
                 }
             } catch (SquadServiceException e) {
-                // error reported by the web service (404, 400, 409 ...) or server not running
                 System.out.println("Error: " + e.getMessage());
             } catch (IllegalArgumentException e) {
-                // wrong input typed by the user (e.g. letters instead of a number)
                 System.out.println("Invalid input: " + e.getMessage());
             }
         }
@@ -68,8 +60,6 @@ public class ClientApp {
         System.out.println("0. Exit");
         System.out.print("Choose: ");
     }
-
-    // ----- menu actions -----
 
     private void showAllPlayers() {
         printTable(client.getAllPlayers());
@@ -92,7 +82,6 @@ public class ClientApp {
         String nationality = readText("Nationality: ");
         int goals = readInt("Goals: ");
 
-        // id 0 = "not known yet"; the server chooses the real id
         Player saved = client.addPlayer(new Player(0, name, position, shirtNumber, nationality, goals));
         System.out.println("Added. The server gave the new player id " + saved.id() + ":");
         printTable(List.of(saved));
@@ -100,7 +89,6 @@ public class ClientApp {
 
     private void updateGoals() {
         int id = readInt("Player id: ");
-        // 1) GET the current version, 2) change one field, 3) PUT the whole player back
         Player player = client.getPlayer(id);
         System.out.println(player.name() + " has " + player.goals() + " goals now.");
         int goals = readInt("New number of goals: ");
@@ -114,8 +102,6 @@ public class ClientApp {
         client.deletePlayer(id);
         System.out.println("Player " + id + " was deleted.");
     }
-
-    // ----- input and output helpers -----
 
     private String readText(String prompt) {
         System.out.print(prompt);
